@@ -4,9 +4,13 @@
 
 use App\Models\Category;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(Category::class, function (Faker $faker) {
-    return [
-        //
-    ];
+  $title = $faker->word;
+
+  return [
+    'title' => $title,
+    'slug'  => Str::slug($title),
+  ];
 });
