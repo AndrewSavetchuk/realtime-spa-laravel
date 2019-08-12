@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
 use App\Models\Reply;
-use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('JWT');
+  }
+
   public function like(Reply $reply)
   {
     $reply->likes()->create([
