@@ -1,3 +1,3 @@
 <?php
 
-Route::apiResource('/question', 'QuestionController');
+Route::apiResource('/questions', 'QuestionController');
