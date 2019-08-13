@@ -2005,22 +2005,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         email: null,
         password: null
-      }
+      },
+      error: null
     };
   },
   methods: {
     login: function login() {
+      var _this = this;
+
       axios.post('/api/auth/login', this.form).then(function (res) {
         User.responseAfterLogin(res);
         window.location = '/forum';
       })["catch"](function (error) {
-        console.log(error);
+        return _this.error = 'Invalid credentials';
       });
     }
   }
@@ -38303,6 +38309,12 @@ var render = function() {
           expression: "form.email"
         }
       }),
+      _vm._v(" "),
+      _vm.error
+        ? _c("span", { staticClass: "red--text" }, [
+            _vm._v("\n    " + _vm._s(_vm.error) + "\n  ")
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("v-text-field", {
         attrs: { label: "Password", type: "password", required: "" },

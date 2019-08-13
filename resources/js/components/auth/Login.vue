@@ -6,6 +6,9 @@
       type="email"
       required
     ></v-text-field>
+    <span class="red--text" v-if="error">
+      {{ error }}
+    </span>
 
     <v-text-field
       label="Password"
@@ -31,6 +34,7 @@ export default {
         email: null,
         password: null,
       },
+      error: null,
     };
   },
 
@@ -41,9 +45,7 @@ export default {
         User.responseAfterLogin(res);
         window.location = '/forum';
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => this.error = 'Invalid credentials');
     },
   },
 };
