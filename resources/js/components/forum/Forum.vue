@@ -4,11 +4,29 @@
     wrap
   >
     <v-flex xs8 class="pt-0">
-      <question
+      <v-card
         v-for="question in questions"
         :key="question.slug"
-        :question="question"
-      />
+        class="mb-3"
+      >
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">
+              <router-link
+                :to="{ name: 'forum-single', params: { slug: question.slug }}"
+              >
+                {{ question.title }}
+              </router-link>
+            </h3>
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <div class="grey--text">
+            {{ question.user }} asked {{ question.created_at }}
+          </div>
+          {{ question.body }}
+        </v-card-text>
+      </v-card>
     </v-flex>
     <v-flex xs4 class="pt-0">
       <app-sidebar />
@@ -18,11 +36,9 @@
 
 <script>
 import AppSidebar from '../AppSidebar';
-import Question from './Question';
 
 export default {
   components: {
-    Question,
     AppSidebar,
   },
 

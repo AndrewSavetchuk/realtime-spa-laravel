@@ -58,7 +58,7 @@ export default {
   methods: {
     update() {
       axios.patch(`/api/questions/${this.question.slug}`, this.form).then((res) => {
-        this.$emit('saved');
+        this.$emit('saved', res.data);
       });
     },
   },

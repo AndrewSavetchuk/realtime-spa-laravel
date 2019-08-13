@@ -4,9 +4,10 @@
       <question-edit-form
         v-if="editing"
         :question="question"
-        @saved="editing = false;fetchQuestion()"
+        @saved="updateQuestion"
         @cancel="editing = false"
       />
+
       <v-card v-if="question && !editing">
         <v-card-title>
           <div>
@@ -15,7 +16,7 @@
             </h3>
           </div>
           <v-spacer></v-spacer>
-          <v-btn color="teal">5 Replies</v-btn>
+          <v-btn color="teal">{{ question.replies ? question.replies.length : '0' }} Replies</v-btn>
         </v-card-title>
         <v-card-text>
           <div class="grey--text">
@@ -43,21 +44,38 @@
           </v-btn>
         </v-card-actions>
       </v-card>
+
+      <question-replies
+        v-if="question"
+        :question-slug="question.slug"
+        :replies="replies"
+      />
+
+      <reply-create-form
+        v-if="question"
+        :question-slug="question.slug"
+        @new="insertNewReply"
+      />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import QuestionEditForm from './QuestionEditForm';
+import QuestionReplies from './QuestionReplies';
+import ReplyCreateForm from './ReplyCreateForm';
 
 export default {
   components: {
-    QuestionEditForm
+    QuestionEditForm,
+    QuestionReplies,
+    ReplyCreateForm,
   },
 
   data() {
     return {
       question: null,
+      replies: null,
       own: null,
       editing: false,
     };
@@ -77,6 +95,7 @@ export default {
     fetchQuestion() {
       axios.get(`/api/questions/${this.$route.params.slug}`).then((res) => {
         this.question = res.data.data;
+        this.replies = res.data.data.replies;
         this.own = User.own(res.data.data.user_id);
         this.setPageTitle(res.data.data.title);
       });
@@ -90,6 +109,15 @@ export default {
       axios.delete(`/api/questions/${this.question.slug}`).then(() => {
         this.$router.push('/forum');
       })
+    },
+
+    insertNewReply(reply) {
+      this.replies.unshift(reply);
+    },
+
+    updateQuestion(question) {
+      this.editing = false;
+      this.question.body = question.body;
     },
   },
 };

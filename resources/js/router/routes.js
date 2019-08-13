@@ -1,7 +1,7 @@
 import Login from '../components/auth/Login';
 import SignUp from '../components/auth/SignUp';
 import Forum from '../components/forum/Forum';
-import ForumAskQuestion from '../components/forum/ForumAskQuestion';
+import QuestionCreate from '../components/forum/QuestionCreate';
 import QuestionSingle from '../components/forum/QuestionSingle';
 import Categories from '../components/forum/Categories';
 
@@ -61,7 +61,7 @@ const routes = [
   },
   {
     path: '/forum/ask',
-    component: ForumAskQuestion,
+    component: QuestionCreate,
     name: 'forum-ask',
     meta: {
       title: displayTitle('Ask question'),

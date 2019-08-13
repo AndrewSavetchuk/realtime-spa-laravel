@@ -22,7 +22,7 @@ class CategoryController extends Controller
   public function store(Request $request)
   {
     $category = Category::create($request->all());
-    return response($category, Response::HTTP_CREATED);
+    return response(new CategoryResource($category), Response::HTTP_CREATED);
   }
 
   public function show(Category $category)
