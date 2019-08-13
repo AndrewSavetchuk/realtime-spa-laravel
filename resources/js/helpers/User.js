@@ -43,6 +43,10 @@ class User {
       return payload.sub;
     }
   }
+
+  own(id) {
+    return parseInt(this.id()) === parseInt(id);
+  }
 }
 
 export default User = new User();

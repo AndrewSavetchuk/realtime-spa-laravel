@@ -2,5 +2,8 @@
 @import 'variables';
 
 @import '~vuetify/dist/vuetify.min.css';
+@import '~simplemde/dist/simplemde.min.css';
 
 @import 'generic/vuetify-overrides';
+@import 'generic/vue-simplemde-overrides';
+@import 'generic/helpers';

@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      v-model="drawer"
       app
       clipped
     >
@@ -46,16 +45,10 @@
     <v-content>
       <v-container
         fluid
+        grid-list-md
         fill-height
       >
-        <v-layout
-          align-center
-          justify-center
-        >
-          <v-flex shrink>
-            <router-view :key="$route.fullPath"></router-view>
-          </v-flex>
-        </v-layout>
+        <router-view :key="$route.fullPath"></router-view>
       </v-container>
     </v-content>
 
@@ -79,6 +72,12 @@ export default {
           title: 'Forum',
           to: '/forum',
           icon: 'forum',
+          show: User.loggedIn(),
+        },
+        {
+          title: 'Ask Question',
+          to: '/forum/ask',
+          icon: 'add',
           show: User.loggedIn(),
         },
         {

@@ -1,6 +1,8 @@
 import Login from '../components/auth/Login';
 import SignUp from '../components/auth/SignUp';
-import Forum from '../components/Forum';
+import Forum from '../components/forum/Forum';
+import ForumAskQuestion from '../components/forum/ForumAskQuestion';
+import ForumSingle from '../components/forum/ForumSingle';
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!User.loggedIn()) {
@@ -46,6 +48,24 @@ const routes = [
     name: 'forum',
     meta: {
       title: displayTitle('Forum'),
+    },
+  },
+  {
+    path: '/forum/ask',
+    component: ForumAskQuestion,
+    name: 'forum-ask',
+    meta: {
+      title: displayTitle('Ask question'),
+    },
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/forum/:slug',
+    component: ForumSingle,
+    name: 'forum-single',
+    meta: {
+      title: false,
+      originalTitle: displayTitle(''),
     },
   },
 ];

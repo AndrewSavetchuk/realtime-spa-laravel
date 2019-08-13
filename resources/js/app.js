@@ -18,6 +18,14 @@ const vuetifyOptions = {};
 Vue.use(Vuetify);
 
 /**
+ * Markdown editor.
+ */
+import md from 'marked';
+import VueSimplemde from 'vue-simplemde';
+Vue.component('vue-simplemde', VueSimplemde);
+window.md = md;
+
+/**
  * Register User helper.
  */
 import User from './helpers/User';
