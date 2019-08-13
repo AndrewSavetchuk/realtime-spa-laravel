@@ -31,19 +31,12 @@ export default {
         email: null,
         password: null,
       },
-      loginUrl: '/api/auth/login',
     };
   },
 
   methods: {
     login() {
-      axios.post(this.loginUrl, this.form)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+      User.login(this.form);
     },
   },
 };
