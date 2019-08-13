@@ -4979,10 +4979,10 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simplemde@*:
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/simplemde/-/simplemde-1.11.2.tgz#a23a35d978d2c40ef07dec008c92f070d8e080e3"
-  integrity sha1-ojo12XjSxA7wfewAjJLwcNjggOM=
+simplemde@1.11.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/simplemde/-/simplemde-1.11.1.tgz#468d162990a707ad5807ded585975ebd77304235"
+  integrity sha1-Ro0WKZCnB61YB97VhZdevXcwQjU=
   dependencies:
     codemirror "*"
     codemirror-spell-checker "*"
@@ -5573,13 +5573,12 @@ vue-router@^3.1.2:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.1.2.tgz#2e0904703545dabdd42b2b7a2e617f02f99a1969"
   integrity sha512-WssQEHSEvIS1/CI4CO2T8LJdoK4Q9Ngox28K7FDNMTfzNTk2WS5D0dDlqYCaPG+AG4Z8wJkn1KrBc7AhspZJUQ==
 
-vue-simplemde@^1.0.0:
+"vue-simplemde@git+https://git@github.com/AndrewSavetchuk/vue-simplemde.git":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-1.0.0.tgz#cba066d0381137dc0629da749534a4c759307527"
-  integrity sha512-lOugLrIJTxJ33wPC/aZKhiKO6K+AiDCSLVZyUkTYzthRGINefu2A6f5dZtb1Po1Nl6XcrXCo9qLQmJycRGL6Kg==
+  resolved "git+https://git@github.com/AndrewSavetchuk/vue-simplemde.git#f5af9a462eb0fb5ce3ab7a4fdbac4523a7fca115"
   dependencies:
     marked "*"
-    simplemde "*"
+    simplemde "1.11.1"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
@@ -5604,10 +5603,10 @@ vue@^2.5.17:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
 
-vuetify@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.5.tgz#3e9cd992bed2f4013bfcfc045ff2e301deb3272d"
-  integrity sha512-t2JNarqqJRzOEtNg2nP9U5EFU4jR6unA8RIiqBGb3pjSCaTxwHzu5H3wkcBh/NM3y6fd40EuIS+SkFejwGD6RQ==
+vuetify@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.0.7.tgz#a5985aca904c147e2febe4ca14e9c7ed26c4f011"
+  integrity sha512-dnW6VowHOXaq6cxYjn6RXcTWVCJnWh3ajh4e4pP84grb4Smebka6yUQSG8rSalPyFzkPeNGuXrXWVsbTAIqv7w==
 
 watchpack@^1.6.0:
   version "1.6.0"
