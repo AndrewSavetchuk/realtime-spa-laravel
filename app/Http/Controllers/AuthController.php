@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignUpRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -37,11 +38,11 @@ class AuthController extends Controller
   /**
    * Create and login user.
    *
-   * @param Request $request
+   * @param SignUpRequest $request
    *
    * @return \Illuminate\Http\JsonResponse
    */
-  public function signup(Request $request)
+  public function signup(SignUpRequest $request)
   {
     User::create($request->all());
     return $this->login($request);
@@ -92,7 +93,7 @@ class AuthController extends Controller
       'access_token' => $token,
       'token_type'   => 'bearer',
       'expires_in'   => auth()->factory()->getTTL() * 60,
-      'user' => auth()->user()->name,
+      'user'         => auth()->user()->name,
     ]);
   }
 }

@@ -2,15 +2,6 @@ import Token from './Token';
 import AppStorage from './AppStorage';
 
 class User {
-  login(data) {
-    axios.post('/api/auth/login', data)
-        .then((res) => this.responseAfterLogin(res))
-        .catch((error) => {
-          console.log(error);
-          console.log(error.response);
-        });
-  }
-
   responseAfterLogin(res) {
     const access_token = res.data.access_token;
     const username = res.data.user;
@@ -36,6 +27,7 @@ class User {
 
   logout() {
     AppStorage.clear();
+    window.location = '/forum';
   }
 
   name() {

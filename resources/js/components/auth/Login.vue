@@ -36,7 +36,14 @@ export default {
 
   methods: {
     login() {
-      User.login(this.form);
+      axios.post('/api/auth/login', this.form)
+      .then((res) => {
+        User.responseAfterLogin(res);
+        window.location = '/forum';
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
   },
 };
