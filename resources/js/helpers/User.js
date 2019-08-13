@@ -47,6 +47,10 @@ class User {
   own(id) {
     return parseInt(this.id()) === parseInt(id);
   }
+
+  isAdmin() {
+    return parseInt(this.id()) === 8;
+  }
 }
 
 export default User = new User();

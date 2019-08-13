@@ -3,7 +3,13 @@
 
 @import '~vuetify/dist/vuetify.min.css';
 @import '~simplemde/dist/simplemde.min.css';
+@import '~@mdi/font/css/materialdesignicons.css';
 
 @import 'generic/vuetify-overrides';
 @import 'generic/vue-simplemde-overrides';
 @import 'generic/helpers';
+
+html,
+body {
+  overscroll-behavior: none;
+}

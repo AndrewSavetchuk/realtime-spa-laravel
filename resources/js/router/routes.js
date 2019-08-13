@@ -2,7 +2,8 @@ import Login from '../components/auth/Login';
 import SignUp from '../components/auth/SignUp';
 import Forum from '../components/forum/Forum';
 import ForumAskQuestion from '../components/forum/ForumAskQuestion';
-import ForumSingle from '../components/forum/ForumSingle';
+import QuestionSingle from '../components/forum/QuestionSingle';
+import Categories from '../components/forum/Categories';
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!User.loggedIn()) {
@@ -18,6 +19,14 @@ const ifAuthenticated = (to, from, next) => {
     return;
   }
   next('/login');
+};
+
+const ifAdmin = (to, from, next) => {
+  if (User.loggedIn() && User.isAdmin()) {
+    next();
+    return;
+  }
+  next('/forum');
 };
 
 const displayTitle = (title) => {
@@ -60,8 +69,17 @@ const routes = [
     beforeEnter: ifAuthenticated,
   },
   {
+    path: '/forum/categories',
+    component: Categories,
+    name: 'forum-categories',
+    meta: {
+      title: displayTitle('Categories'),
+    },
+    beforeEnter: ifAdmin,
+  },
+  {
     path: '/forum/:slug',
-    component: ForumSingle,
+    component: QuestionSingle,
     name: 'forum-single',
     meta: {
       title: false,

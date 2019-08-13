@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      v-model="drawer"
       app
       clipped
     >
@@ -39,6 +40,7 @@
       app
       clipped-left
     >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Pusher Realtime Updates Application</v-toolbar-title>
     </v-app-bar>
 
@@ -66,6 +68,7 @@ export default {
 
   data() {
     return {
+      drawer: null,
       isLoggedIn: User.loggedIn(),
       items: [
         {
@@ -79,6 +82,12 @@ export default {
           to: '/forum/ask',
           icon: 'add',
           show: User.loggedIn(),
+        },
+        {
+          title: 'Categories',
+          to: '/forum/categories',
+          icon: 'list',
+          show: User.loggedIn() && User.isAdmin(),
         },
         {
           title: 'Login',
