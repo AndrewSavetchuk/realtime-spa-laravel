@@ -42,6 +42,10 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Pusher Realtime Updates Application</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <app-notification
+        v-if="isLoggedIn"
+      />
     </v-app-bar>
 
     <v-content>
@@ -61,7 +65,13 @@
 </template>
 
 <script>
+import AppNotification from './AppNotification';
+
 export default {
+  components: {
+    AppNotification,
+  },
+
   props: {
     source: String,
   },

@@ -22,6 +22,11 @@ class Reply extends Model
     return $this->belongsTo(Question::class);
   }
 
+  public function getQuestionPathAttribute()
+  {
+    return $this->question ? $this->question->slug : '';
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);

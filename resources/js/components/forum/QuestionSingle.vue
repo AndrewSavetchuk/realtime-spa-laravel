@@ -11,7 +11,7 @@
       <v-card v-if="question && !editing">
         <v-card-title>
           <div>
-            <h3 class="headline mb-0">
+            <h3 class="mb-0">
               {{ question.title }}
             </h3>
           </div>
@@ -22,6 +22,7 @@
           <div class="grey--text">
             {{ question.user }} asked {{ question.created_at }}
           </div>
+          <v-divider class="mt-2 mb-2" />
           <div
             v-html="body"
           />

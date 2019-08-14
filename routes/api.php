@@ -8,7 +8,11 @@ Route::apiResource('/questions/{question}/replies', 'ReplyController');
 
 Route::post('/like/{reply}', 'LikeController@like');
 
-Route::delete('/dislike/{reply}', 'LikeController@dislike');
+Route::post('/dislike/{reply}', 'LikeController@dislike');
+
+Route::post('/notifications', 'NotificationController@index');
+
+Route::post('/notifications/mark-as-read', 'NotificationController@markAsRead');
 
 Route::group([
   'middleware' => 'api',

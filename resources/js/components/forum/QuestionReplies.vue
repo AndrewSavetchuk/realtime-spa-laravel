@@ -5,12 +5,17 @@
       :key="reply.id"
       class="mt-4"
     >
+      <v-card-title>
+        <h6>{{ reply.user }} answered {{ reply.created_at }}</h6>
+        <v-spacer />
+        <like
+          :reply="reply"
+        />
+      </v-card-title>
+
       <v-card-text>
+        <v-divider class="mb-2" />
         <div v-if="!editing || editing !== reply.id">
-          <h3 class="mb-0">
-            {{ reply.user }} answered {{ reply.created_at }}
-          </h3>
-          <v-divider class="mt-2 mb-2" />
           <div
             v-html="parseReplyBody(reply.body)"
           />
@@ -50,10 +55,12 @@
 
 <script>
 import ReplyEditForm from './ReplyEditForm';
+import Like from './Like';
 
 export default {
   components: {
     ReplyEditForm,
+    Like,
   },
 
   props: [

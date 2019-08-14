@@ -14,14 +14,12 @@ class LikeController extends Controller
   public function like(Reply $reply)
   {
     $reply->likes()->create([
-      // 'user_id' => auth()->id(), // TODO: implement auth later
-      'user_id' => 1,
+      'user_id' => auth()->user()->id,
     ]);
   }
 
   public function dislike(Reply $reply)
   {
-    // $reply->likes()->where('user_id', auth()->id())->first()->delete(); // TODO: implement auth later
-    $reply->likes()->where('user_id', 1)->first()->delete();
+    $reply->likes()->where('user_id', auth()->user()->id)->first()->delete();
   }
 }
