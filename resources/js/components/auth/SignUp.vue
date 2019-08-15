@@ -11,9 +11,9 @@
           type="text"
           required
         ></v-text-field>
-        <span class="red--text" v-if="errors.name">
-      {{ errors.name[0] }}
-    </span>
+        <div class="red--text" v-if="errors.name">
+          {{ errors.name[0] }}
+        </div>
 
         <v-text-field
           label="E-mail"
@@ -21,9 +21,9 @@
           type="email"
           required
         ></v-text-field>
-        <span class="red--text" v-if="errors.email">
-      {{ errors.email[0] }}
-    </span>
+        <div class="red--text" v-if="errors.email">
+          {{ errors.email[0] }}
+        </div>
 
         <v-text-field
           label="Password"
@@ -31,9 +31,9 @@
           type="password"
           required
         ></v-text-field>
-        <span class="red--text" v-if="errors.password">
-      {{ errors.password[0] }}
-    </span>
+        <div class="red--text" v-if="errors.password">
+          {{ errors.password[0] }}
+        </div>
 
         <v-text-field
           label="Password Confirmation"
@@ -72,7 +72,7 @@ export default {
       axios.post('/api/auth/signup', this.form).then((res) => {
         User.responseAfterLogin(res);
         window.location = '/forum';
-      }).catch((error) => this.errors = error.response.data.errors);
+      }).catch((error) => this.errors = error.data.errors);
     },
   },
 };

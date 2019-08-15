@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\DeleteReplyEvent;
 use App\Http\Resources\ReplyResource;
+use App\Http\Requests\ReplyRequest;
 use App\Models\Question;
 use App\Models\Reply;
 use App\Notifications\NewReplyNotification;
@@ -22,7 +23,7 @@ class ReplyController extends Controller
     return ReplyResource::collection($question->replies()->latest()->get());
   }
 
-  public function store(Question $question, Request $request)
+  public function store(Question $question, ReplyRequest $request)
   {
     $reply = $question->replies()->create($request->all());
     $user = $question->user;
@@ -37,7 +38,7 @@ class ReplyController extends Controller
     return new ReplyResource($reply);
   }
 
-  public function update(Question $question, Request $request, Reply $reply)
+  public function update(Question $question, ReplyRequest $request, Reply $reply)
   {
     $reply->update($request->all());
     return response(new ReplyResource($reply), Response::HTTP_OK);

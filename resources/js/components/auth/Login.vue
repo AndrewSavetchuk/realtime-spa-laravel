@@ -11,9 +11,9 @@
           type="email"
           required
         ></v-text-field>
-        <span class="red--text" v-if="error">
+        <div class="red--text" v-if="error">
           {{ error }}
-        </span>
+        </div>
 
         <v-text-field
           label="Password"
@@ -47,12 +47,10 @@ export default {
 
   methods: {
     login() {
-      axios.post('/api/auth/login', this.form)
-      .then((res) => {
+      axios.post('/api/auth/login', this.form).then((res) => {
         User.responseAfterLogin(res);
         window.location = '/forum';
-      })
-      .catch((error) => this.error = 'Invalid credentials');
+      }).catch((error) => this.error = 'Invalid credentials');
     },
   },
 };

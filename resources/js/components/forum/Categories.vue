@@ -14,11 +14,15 @@
           type="text"
           required
         />
+        <div class="red--text" v-if="errors.title">
+          {{ errors.title[0] }}
+        </div>
 
         <v-btn
           v-if="!editSlug"
           type="submit"
           color="teal"
+          :disabled="formIsValid"
         >
           Create
         </v-btn>
@@ -26,6 +30,7 @@
           v-else
           type="submit"
           color="teal"
+          :disabled="formIsValid"
         >
           Update
         </v-btn>
@@ -98,7 +103,14 @@ export default {
       },
       categories: null,
       editSlug: null,
+      errors: {},
     };
+  },
+
+  computed: {
+    formIsValid() {
+      return !this.form.title;
+    },
   },
 
   created() {
@@ -122,7 +134,7 @@ export default {
       axios.post('/api/categories', this.form).then((res) => {
         this.categories.unshift(res.data);
         this.form.title = '';
-      });
+      }).catch((error) => this.errors = error.data.errors);
     },
 
     update() {
@@ -131,7 +143,7 @@ export default {
         this.categories[category].title = this.form.title;
         this.form.title = '';
         this.editSlug = null;
-      });
+      }).catch((error) => this.errors = error.data.errors);
     },
 
     destroy(category, index) {

@@ -14,6 +14,9 @@
           type="text"
           required
         />
+        <div class="red--text" v-if="errors.title">
+          {{ errors.title[0] }}
+        </div>
 
         <v-select
           v-model="form.categoryId"
@@ -23,15 +26,22 @@
           label="Category"
           autocomplete
         />
+        <div class="red--text" v-if="errors.categoryId">
+          {{ errors.categoryId[0] }}
+        </div>
 
         <vue-simplemde
           v-model="form.body"
           class="mb-4"
         />
+        <div class="red--text" v-if="errors.body">
+          {{ errors.body[0] }}
+        </div>
 
         <v-btn
           color="green"
           type="submit"
+          :disabled="formIsValid"
         >
           Ask Question
         </v-btn>
@@ -50,8 +60,14 @@ export default {
         categoryId: '',
         body: '',
       },
-      error: {},
+      errors: {},
     };
+  },
+
+  computed: {
+    formIsValid() {
+      return !(this.form.title && this.form.body && this.form.categoryId);
+    },
   },
 
   created() {
@@ -66,9 +82,7 @@ export default {
     ask() {
       axios.post('/api/questions', this.form).then((res) => {
         this.$router.push(`/forum/${res.data.slug}`);
-      }).catch((error) => {
-        this.error = error.response.data.error;
-      });
+      }).catch((error) => this.errors = error.data.errors);
     },
   },
 };

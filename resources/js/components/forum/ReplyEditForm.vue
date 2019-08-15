@@ -12,6 +12,7 @@
       color="green"
       type="submit"
       class="mr-2"
+      :disabled="formIsValid"
     >
       Save
     </v-btn>
@@ -38,6 +39,12 @@ export default {
       },
       error: {},
     };
+  },
+
+  computed: {
+    formIsValid() {
+      return !this.form.body;
+    },
   },
 
   methods: {

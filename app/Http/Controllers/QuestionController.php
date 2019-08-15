@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\QuestionResource;
+use App\Http\Requests\QuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +20,7 @@ class QuestionController extends Controller
     return QuestionResource::collection(Question::latest()->get());
   }
 
-  public function store(Request $request)
+  public function store(QuestionRequest $request)
   {
     $question = auth()->user()->questions()->create($request->all());
     return response(new QuestionResource($question), Response::HTTP_CREATED);
@@ -30,7 +31,7 @@ class QuestionController extends Controller
     return new QuestionResource($question);
   }
 
-  public function update(Request $request, Question $question)
+  public function update(QuestionRequest $request, Question $question)
   {
     $question->update($request->all());
     return response(new QuestionResource($question), Response::HTTP_OK);

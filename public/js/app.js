@@ -2280,7 +2280,7 @@ __webpack_require__.r(__webpack_exports__);
         User.responseAfterLogin(res);
         window.location = '/forum';
       })["catch"](function (error) {
-        return _this.errors = error.response.data.errors;
+        return _this.errors = error.data.errors;
       });
     }
   }
@@ -2388,6 +2388,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2395,8 +2400,14 @@ __webpack_require__.r(__webpack_exports__);
         title: ''
       },
       categories: null,
-      editSlug: null
+      editSlug: null,
+      errors: {}
     };
+  },
+  computed: {
+    formIsValid: function formIsValid() {
+      return !this.form.title;
+    }
   },
   created: function created() {
     this.fetchCategories();
@@ -2423,6 +2434,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.categories.unshift(res.data);
 
         _this2.form.title = '';
+      })["catch"](function (error) {
+        return _this2.errors = error.data.errors;
       });
     },
     update: function update() {
@@ -2436,6 +2449,8 @@ __webpack_require__.r(__webpack_exports__);
         _this3.categories[category].title = _this3.form.title;
         _this3.form.title = '';
         _this3.editSlug = null;
+      })["catch"](function (error) {
+        return _this3.errors = error.data.errors;
       });
     },
     destroy: function destroy(category, index) {
@@ -2653,6 +2668,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2662,8 +2687,13 @@ __webpack_require__.r(__webpack_exports__);
         categoryId: '',
         body: ''
       },
-      error: {}
+      errors: {}
     };
+  },
+  computed: {
+    formIsValid: function formIsValid() {
+      return !(this.form.title && this.form.body && this.form.categoryId);
+    }
   },
   created: function created() {
     this.fetchCategories();
@@ -2682,7 +2712,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/questions', this.form).then(function (res) {
         _this2.$router.push("/forum/".concat(res.data.slug));
       })["catch"](function (error) {
-        _this2.error = error.response.data.error;
+        return _this2.errors = error.data.errors;
       });
     }
   }
@@ -2740,6 +2770,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['question'],
   data: function data() {
@@ -2748,8 +2784,13 @@ __webpack_require__.r(__webpack_exports__);
         title: this.question.title,
         body: this.question.body
       },
-      error: {}
+      errors: {}
     };
+  },
+  computed: {
+    formIsValid: function formIsValid() {
+      return !(this.form.title && this.form.body);
+    }
   },
   methods: {
     update: function update() {
@@ -2757,6 +2798,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.patch("/api/questions/".concat(this.question.slug), this.form).then(function (res) {
         _this.$emit('saved', res.data);
+      })["catch"](function (error) {
+        return _this.errors = error.data.errors;
       });
     }
   }
@@ -3063,14 +3106,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['questionSlug'],
   data: function data() {
     return {
       form: {
         body: ''
-      }
+      },
+      errors: {}
     };
+  },
+  computed: {
+    formIsValid: function formIsValid() {
+      return !this.form.body;
+    }
   },
   methods: {
     submit: function submit() {
@@ -3080,6 +3130,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.body = '';
 
         _this.$emit('new', res.data.reply);
+      })["catch"](function (error) {
+        return _this.errors = error.data.errors;
       });
     }
   }
@@ -3122,6 +3174,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['reply', 'questionSlug'],
   data: function data() {
@@ -3131,6 +3184,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       error: {}
     };
+  },
+  computed: {
+    formIsValid: function formIsValid() {
+      return !this.form.body;
+    }
   },
   methods: {
     update: function update() {
@@ -68844,7 +68902,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.error
-                ? _c("span", { staticClass: "red--text" }, [
+                ? _c("div", { staticClass: "red--text" }, [
                     _vm._v("\n        " + _vm._s(_vm.error) + "\n      ")
                   ])
                 : _vm._e(),
@@ -68926,8 +68984,10 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors.name
-                ? _c("span", { staticClass: "red--text" }, [
-                    _vm._v("\n    " + _vm._s(_vm.errors.name[0]) + "\n  ")
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.name[0]) + "\n      "
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -68943,8 +69003,10 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors.email
-                ? _c("span", { staticClass: "red--text" }, [
-                    _vm._v("\n    " + _vm._s(_vm.errors.email[0]) + "\n  ")
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.email[0]) + "\n      "
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -68960,8 +69022,10 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors.password
-                ? _c("span", { staticClass: "red--text" }, [
-                    _vm._v("\n    " + _vm._s(_vm.errors.password[0]) + "\n  ")
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.password[0]) + "\n      "
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -69045,13 +69109,37 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              !_vm.editSlug
-                ? _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
-                    _vm._v("\n        Create\n      ")
+              _vm.errors.title
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.title[0]) + "\n      "
+                    )
                   ])
-                : _c("v-btn", { attrs: { type: "submit", color: "teal" } }, [
-                    _vm._v("\n        Update\n      ")
-                  ]),
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.editSlug
+                ? _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        type: "submit",
+                        color: "teal",
+                        disabled: _vm.formIsValid
+                      }
+                    },
+                    [_vm._v("\n        Create\n      ")]
+                  )
+                : _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        type: "submit",
+                        color: "teal",
+                        disabled: _vm.formIsValid
+                      }
+                    },
+                    [_vm._v("\n        Update\n      ")]
+                  ),
               _vm._v(" "),
               _vm.form.title
                 ? _c(
@@ -69369,6 +69457,14 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.title
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.title[0]) + "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("v-select", {
                 attrs: {
                   items: _vm.categories,
@@ -69386,6 +69482,16 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.categoryId
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " +
+                        _vm._s(_vm.errors.categoryId[0]) +
+                        "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("vue-simplemde", {
                 staticClass: "mb-4",
                 model: {
@@ -69397,9 +69503,25 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-                _vm._v("\n        Ask Question\n      ")
-              ])
+              _vm.errors.body
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.body[0]) + "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: {
+                    color: "green",
+                    type: "submit",
+                    disabled: _vm.formIsValid
+                  }
+                },
+                [_vm._v("\n        Ask Question\n      ")]
+              )
             ],
             1
           )
@@ -69434,7 +69556,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-layout",
-    { attrs: { "align-center": "", "justify-center": "", "fill-height": "" } },
+    { attrs: { "align-center": "", "justify-center": "" } },
     [
       _c(
         "v-flex",
@@ -69463,6 +69585,14 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.title
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.title[0]) + "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("vue-simplemde", {
                 staticClass: "mb-4",
                 model: {
@@ -69474,11 +69604,23 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.body
+                ? _c("div", { staticClass: "red--text" }, [
+                    _vm._v(
+                      "\n        " + _vm._s(_vm.errors.title[0]) + "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "v-btn",
                 {
                   staticClass: "mr-2",
-                  attrs: { color: "green", type: "submit" }
+                  attrs: {
+                    color: "green",
+                    type: "submit",
+                    disabled: _vm.formIsValid
+                  }
                 },
                 [_vm._v("\n        Save\n      ")]
               ),
@@ -69844,9 +69986,13 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-        _vm._v("\n    Reply\n  ")
-      ])
+      _c(
+        "v-btn",
+        {
+          attrs: { color: "green", type: "submit", disabled: _vm.formIsValid }
+        },
+        [_vm._v("\n    Reply\n  ")]
+      )
     ],
     1
   )
@@ -69898,7 +70044,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-btn",
-        { staticClass: "mr-2", attrs: { color: "green", type: "submit" } },
+        {
+          staticClass: "mr-2",
+          attrs: { color: "green", type: "submit", disabled: _vm.formIsValid }
+        },
         [_vm._v("\n    Save\n  ")]
       ),
       _vm._v(" "),

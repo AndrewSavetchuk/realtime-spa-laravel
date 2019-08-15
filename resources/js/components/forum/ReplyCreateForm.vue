@@ -11,6 +11,7 @@
     <v-btn
       color="green"
       type="submit"
+      :disabled="formIsValid"
     >
       Reply
     </v-btn>
@@ -28,7 +29,14 @@ export default {
       form: {
         body: '',
       },
+      errors: {},
     };
+  },
+
+  computed: {
+    formIsValid() {
+      return !this.form.body;
+    },
   },
 
   methods: {
@@ -36,7 +44,7 @@ export default {
       axios.post(`/api/questions/${this.questionSlug}/replies`, this.form).then((res) => {
         this.form.body = '';
         this.$emit('new', res.data.reply);
-      });
+      }).catch((error) => this.errors = error.data.errors);
     },
   },
 };

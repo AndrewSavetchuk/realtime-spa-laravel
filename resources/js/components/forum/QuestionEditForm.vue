@@ -2,7 +2,6 @@
   <v-layout
     align-center
     justify-center
-    fill-height
   >
     <v-flex xs8>
       <v-form
@@ -15,16 +14,23 @@
           type="text"
           required
         />
+        <div class="red--text" v-if="errors.title">
+          {{ errors.title[0] }}
+        </div>
 
         <vue-simplemde
           v-model="form.body"
           class="mb-4"
         />
+        <div class="red--text" v-if="errors.body">
+          {{ errors.title[0] }}
+        </div>
 
         <v-btn
           color="green"
           type="submit"
           class="mr-2"
+          :disabled="formIsValid"
         >
           Save
         </v-btn>
@@ -51,15 +57,21 @@ export default {
         title: this.question.title,
         body: this.question.body,
       },
-      error: {},
+      errors: {},
     };
+  },
+
+  computed: {
+    formIsValid() {
+      return !(this.form.title && this.form.body);
+    },
   },
 
   methods: {
     update() {
       axios.patch(`/api/questions/${this.question.slug}`, this.form).then((res) => {
         this.$emit('saved', res.data);
-      });
+      }).catch((error) => this.errors = error.data.errors);
     },
   },
 };
