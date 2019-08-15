@@ -21,13 +21,13 @@
           :key="`unread-${item.id}`"
         >
           <router-link
-            :to="`/forum/${item.data.path}`"
+            :to="`/forum/${item.data ? item.data.path : item.path}`"
           >
             <v-list-item-title
               @click="markAsRead(item)"
             >
               <strong>
-                {{ item.data.question }}
+                {{ item.data ? item.data.question : item.question }}
               </strong>
             </v-list-item-title>
           </router-link>
@@ -38,7 +38,7 @@
           :key="`read-${item.id}`"
         >
           <v-list-item-title>
-            {{ item.data.question }}
+            {{ item.data ? item.data.question : item.question }}
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -58,6 +58,7 @@ export default {
 
   created() {
     this.getNotifications();
+    this.listen();
   },
 
   methods: {
@@ -78,6 +79,13 @@ export default {
         this.unread.splice(item, 1);
         this.read.push(item);
         this.unreadCounter--;
+      });
+    },
+
+    listen() {
+      Echo.private('App.User.' + User.id()).notification((notification) => {
+        this.unread.unshift(notification);
+        this.unreadCounter++;
       });
     },
   },

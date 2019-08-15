@@ -26,9 +26,13 @@ export default {
     };
   },
 
+  created() {
+    this.listen();
+  },
+
   methods: {
     like() {
-      if(User.loggedIn()) {
+      if (User.loggedIn()) {
         this.liked ? this.decr() : this.incr();
         this.liked = !this.liked;
       }
@@ -43,6 +47,18 @@ export default {
     incr() {
       axios.post(`/api/like/${this.reply.id}`).then(() => {
         this.count++;
+      });
+    },
+
+    listen() {
+      Echo.channel('likeChannel').listen('LikeEvent', (e) => {
+        if (this.reply.id === e.id) {
+          if (e.type === 1) {
+            this.count++;
+          } else {
+            this.count--;
+          }
+        }
       });
     },
   },

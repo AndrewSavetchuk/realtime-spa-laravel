@@ -7,14 +7,14 @@
     >
       <v-card-title>
         <h6>{{ reply.user }} answered {{ reply.created_at }}</h6>
-        <v-spacer />
+        <v-spacer/>
         <like
           :reply="reply"
         />
       </v-card-title>
 
       <v-card-text>
-        <v-divider class="mb-2" />
+        <v-divider class="mb-2"/>
         <div v-if="!editing || editing !== reply.id">
           <div
             v-html="parseReplyBody(reply.body)"
@@ -75,6 +75,10 @@ export default {
     };
   },
 
+  created() {
+    this.listen();
+  },
+
   methods: {
     own(userId) {
       return User.own(userId);
@@ -92,9 +96,20 @@ export default {
     },
 
     updateReply(reply) {
-      const replyIndex =_.findIndex(this.replies, { id: reply.id });
+      const replyIndex = _.findIndex(this.replies, {id: reply.id});
       this.replies[replyIndex].body = reply.body;
       this.editing = false;
+    },
+
+    listen() {
+      Echo.private('App.User.' + User.id()).notification((notification) => {
+        this.repliesList.unshift(notification.reply);
+      });
+
+      Echo.channel('deleteReplyChannel').listen('DeleteReplyEvent', (e) => {
+        const replyIndex = _.findIndex(this.replies, {id: e.id});
+        this.replies.splice(replyIndex, 1);
+      });
     },
   },
 };

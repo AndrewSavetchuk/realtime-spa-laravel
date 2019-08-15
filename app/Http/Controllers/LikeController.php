@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeEvent;
 use App\Models\Reply;
 
 class LikeController extends Controller
@@ -16,10 +17,14 @@ class LikeController extends Controller
     $reply->likes()->create([
       'user_id' => auth()->user()->id,
     ]);
+
+    broadcast(new LikeEvent($reply->id, 1))->toOthers();
   }
 
   public function dislike(Reply $reply)
   {
     $reply->likes()->where('user_id', auth()->user()->id)->first()->delete();
+
+    broadcast(new LikeEvent($reply->id, 0))->toOthers();
   }
 }
