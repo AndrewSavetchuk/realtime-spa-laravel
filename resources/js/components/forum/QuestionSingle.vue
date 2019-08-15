@@ -53,10 +53,20 @@
       />
 
       <reply-create-form
-        v-if="question"
+        v-if="question && isLoggedIn"
         :question-slug="question.slug"
         @new="insertNewReply"
       />
+      <div
+        v-else
+        class="mt-4"
+      >
+        <router-link
+          to="/login"
+        >
+          Login to Reply
+        </router-link>
+      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -79,6 +89,7 @@ export default {
       replies: null,
       own: null,
       editing: false,
+      isLoggedIn: User.loggedIn(),
     };
   },
 

@@ -2965,6 +2965,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2979,7 +2989,8 @@ __webpack_require__.r(__webpack_exports__);
       question: null,
       replies: null,
       own: null,
-      editing: false
+      editing: false,
+      isLoggedIn: User.loggedIn()
     };
   },
   computed: {
@@ -69766,12 +69777,21 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.question
+          _vm.question && _vm.isLoggedIn
             ? _c("reply-create-form", {
                 attrs: { "question-slug": _vm.question.slug },
                 on: { new: _vm.insertNewReply }
               })
-            : _vm._e()
+            : _c(
+                "div",
+                { staticClass: "mt-4" },
+                [
+                  _c("router-link", { attrs: { to: "/login" } }, [
+                    _vm._v("\n        Login to Reply\n      ")
+                  ])
+                ],
+                1
+              )
         ],
         1
       )
