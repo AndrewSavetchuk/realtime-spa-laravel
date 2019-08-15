@@ -15,7 +15,7 @@ class User {
     const storedToken = AppStorage.getToken();
 
     if (storedToken) {
-      return Token.isValid(storedToken);
+      return Token.isValid(storedToken) ? true : this.logoutToLogin();
     }
 
     return false;
