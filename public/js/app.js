@@ -2026,7 +2026,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       read: null,
       unread: null,
-      unreadCounter: 0
+      unreadCounter: 0,
+      soundUrl: '/sound/notification-sound.mp3'
     };
   },
   created: function created() {
@@ -2065,7 +2066,13 @@ __webpack_require__.r(__webpack_exports__);
         _this3.unread.unshift(notification);
 
         _this3.unreadCounter++;
+
+        _this3.playSound();
       });
+    },
+    playSound: function playSound() {
+      var audio = new Audio(this.soundUrl);
+      audio.play();
     }
   }
 });

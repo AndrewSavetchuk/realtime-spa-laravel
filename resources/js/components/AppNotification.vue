@@ -53,6 +53,7 @@ export default {
       read: null,
       unread: null,
       unreadCounter: 0,
+      soundUrl: '/sound/notification-sound.mp3',
     };
   },
 
@@ -86,7 +87,13 @@ export default {
       Echo.private('App.User.' + User.id()).notification((notification) => {
         this.unread.unshift(notification);
         this.unreadCounter++;
+        this.playSound();
       });
+    },
+
+    playSound() {
+      const audio = new Audio(this.soundUrl);
+      audio.play();
     },
   },
 };
