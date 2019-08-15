@@ -2522,6 +2522,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2529,21 +2538,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      questions: []
+      questions: [],
+      // pagination
+      meta: {}
     };
   },
   created: function created() {
-    this.fetchQuestions();
+    this.fetchQuestions('/api/questions/');
   },
   methods: {
-    fetchQuestions: function fetchQuestions() {
+    fetchQuestions: function fetchQuestions(fetchUrl) {
       var _this = this;
 
-      axios.get('/api/questions/').then(function (res) {
-        return _this.questions = res.data.data;
+      axios.get(fetchUrl).then(function (res) {
+        _this.questions = res.data.data;
+        _this.meta = res.data.meta;
       })["catch"](function (error) {
         return console.log(error.response.data);
       });
+    },
+    goTo: function goTo(page) {
+      this.fetchQuestions("/api/questions?page=".concat(page));
     }
   }
 });
@@ -69303,58 +69318,81 @@ var render = function() {
       _c(
         "v-flex",
         { staticClass: "pt-0", attrs: { xs8: "" } },
-        _vm._l(_vm.questions, function(question) {
-          return _c(
-            "v-card",
-            { key: question.slug, staticClass: "mb-3" },
-            [
-              _c("v-card-title", { attrs: { "primary-title": "" } }, [
-                _c("div", [
-                  _c(
-                    "h3",
-                    { staticClass: "headline mb-0" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          attrs: {
-                            to: {
-                              name: "forum-single",
-                              params: { slug: question.slug }
+        [
+          _vm._l(_vm.questions, function(question) {
+            return _c(
+              "v-card",
+              { key: question.slug, staticClass: "mb-3" },
+              [
+                _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                  _c("div", [
+                    _c(
+                      "h3",
+                      { staticClass: "headline mb-0" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "forum-single",
+                                params: { slug: question.slug }
+                              }
                             }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n              " +
-                              _vm._s(question.title) +
-                              "\n            "
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("v-card-text", [
-                _c("div", { staticClass: "grey--text" }, [
-                  _vm._v(
-                    "\n          " +
-                      _vm._s(question.user) +
-                      " asked " +
-                      _vm._s(question.created_at) +
-                      "\n        "
-                  )
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(question.title) +
+                                "\n            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
                 ]),
-                _vm._v("\n        " + _vm._s(question.body) + "\n      ")
-              ])
+                _vm._v(" "),
+                _c("v-card-text", [
+                  _c("div", { staticClass: "grey--text" }, [
+                    _vm._v(
+                      "\n          " +
+                        _vm._s(question.user) +
+                        " asked " +
+                        _vm._s(question.created_at) +
+                        "\n        "
+                    )
+                  ]),
+                  _vm._v("\n        " + _vm._s(question.body) + "\n      ")
+                ])
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "text-xs-center" },
+            [
+              _vm.questions.length
+                ? _c("v-pagination", {
+                    attrs: { length: _vm.meta.last_page },
+                    on: { input: _vm.goTo },
+                    model: {
+                      value: _vm.meta.current_page,
+                      callback: function($$v) {
+                        _vm.$set(_vm.meta, "current_page", $$v)
+                      },
+                      expression: "meta.current_page"
+                    }
+                  })
+                : _vm._e()
             ],
             1
           )
-        }),
-        1
+        ],
+        2
       ),
       _vm._v(" "),
       _c(

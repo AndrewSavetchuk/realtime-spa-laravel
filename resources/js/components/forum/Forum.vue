@@ -27,6 +27,15 @@
           {{ question.body }}
         </v-card-text>
       </v-card>
+
+      <div class="text-xs-center">
+        <v-pagination
+          v-if="questions.length"
+          v-model="meta.current_page"
+          :length="meta.last_page"
+          @input="goTo"
+        />
+      </div>
     </v-flex>
     <v-flex xs4 class="pt-0">
       <app-sidebar />
@@ -45,18 +54,27 @@ export default {
   data() {
     return {
       questions: [],
+      // pagination
+      meta: {},
     };
   },
 
   created() {
-    this.fetchQuestions();
+    this.fetchQuestions('/api/questions/');
   },
 
   methods: {
-    fetchQuestions() {
-      axios.get('/api/questions/').
-        then((res) => this.questions = res.data.data).
+    fetchQuestions(fetchUrl) {
+      axios.get(fetchUrl).
+        then((res) => {
+          this.questions = res.data.data;
+          this.meta = res.data.meta;
+        }).
         catch((error) => console.log(error.response.data));
+    },
+
+    goTo(page) {
+      this.fetchQuestions(`/api/questions?page=${page}`);
     },
   },
 };
