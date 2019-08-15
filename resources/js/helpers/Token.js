@@ -2,7 +2,8 @@ class Token {
   isValid(token) {
     const payload = this.payload(token);
     if (payload) {
-      return payload.iss === 'http://pusher-tutorial:8888/api/auth/login' || payload.iss === 'http://pusher-tutorial:8888/api/auth/signup';
+      return payload.iss === 'http://pusher-tutorial:8888/api/auth/login' ||
+        payload.iss === 'http://pusher-tutorial:8888/api/auth/signup';
     }
 
     return false;
@@ -14,7 +15,19 @@ class Token {
   }
 
   decode(payload) {
-    return JSON.parse(atob(payload));
+    if (this.isBase64(payload)) {
+      return JSON.parse(atob(payload));
+    }
+
+    return false;
+  }
+
+  isBase64(str) {
+    try {
+      return atob(str);
+    } catch (err) {
+      return false;
+    }
   }
 }
 
