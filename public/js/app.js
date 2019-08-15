@@ -121340,14 +121340,15 @@ module.exports = function(module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./router/index */ "./resources/js/router/index.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
-/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! material-design-icons-iconfont/dist/material-design-icons.css */ "./node_modules/material-design-icons-iconfont/dist/material-design-icons.css");
-/* harmony import */ var material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
-/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/src/index.vue");
-/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
+/* harmony import */ var _interceptors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./interceptors */ "./resources/js/interceptors.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
+/* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! material-design-icons-iconfont/dist/material-design-icons.css */ "./node_modules/material-design-icons-iconfont/dist/material-design-icons.css");
+/* harmony import */ var material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(material_design_icons_iconfont_dist_material_design_icons_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/src/index.vue");
+/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -121358,6 +121359,12 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 /**
+ * Handle token expired exception.
+ */
+
+
+Object(_interceptors__WEBPACK_IMPORTED_MODULE_1__["default"])();
+/**
  * Vuetify - Material Design Component Framework
  * More details on https://vuetifyjs.com/en/
  */
@@ -121365,21 +121372,21 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 var vuetifyOptions = {};
-Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a);
+Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_2___default.a);
 /**
  * Markdown editor.
  */
 
 
 
-Vue.component('vue-simplemde', vue_simplemde__WEBPACK_IMPORTED_MODULE_4__["default"]);
-window.md = marked__WEBPACK_IMPORTED_MODULE_3___default.a;
+Vue.component('vue-simplemde', vue_simplemde__WEBPACK_IMPORTED_MODULE_5__["default"]);
+window.md = marked__WEBPACK_IMPORTED_MODULE_4___default.a;
 /**
  * Register User helper.
  */
 
 
-window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_5__["default"];
+window.User = _helpers_User__WEBPACK_IMPORTED_MODULE_6__["default"];
 /**
  * Register EventBus to emit between components.
  */
@@ -121398,7 +121405,7 @@ Vue.component('app-home', __webpack_require__(/*! ./components/AppHome.vue */ ".
 
 var app = new Vue({
   el: '#app',
-  vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a(vuetifyOptions),
+  vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_2___default.a(vuetifyOptions),
   router: _router_index__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
 
@@ -122616,6 +122623,12 @@ function () {
       window.location = '/forum';
     }
   }, {
+    key: "logoutToLogin",
+    value: function logoutToLogin() {
+      _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].clear();
+      window.location = '/login';
+    }
+  }, {
     key: "name",
     value: function name() {
       if (this.loggedIn()) {
@@ -122646,6 +122659,34 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (User = new User());
+
+/***/ }),
+
+/***/ "./resources/js/interceptors.js":
+/*!**************************************!*\
+  !*** ./resources/js/interceptors.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers_User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers/User */ "./resources/js/helpers/User.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    if (error.response.data && error.response.data.error && error.response.data.error === 'Token is expired') {
+      _helpers_User__WEBPACK_IMPORTED_MODULE_1__["default"].logoutToLogin();
+    }
+
+    return Promise.reject(error.response);
+  });
+});
 
 /***/ }),
 

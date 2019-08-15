@@ -9,6 +9,12 @@ window.Vue = require('vue');
 import router from './router/index';
 
 /**
+ * Handle token expired exception.
+ */
+import interceptors from './interceptors';
+interceptors();
+
+/**
  * Vuetify - Material Design Component Framework
  * More details on https://vuetifyjs.com/en/
  */

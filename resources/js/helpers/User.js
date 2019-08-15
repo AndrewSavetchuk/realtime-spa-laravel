@@ -30,6 +30,11 @@ class User {
     window.location = '/forum';
   }
 
+  logoutToLogin() {
+    AppStorage.clear();
+    window.location = '/login';
+  }
+
   name() {
     if (this.loggedIn()) {
       return AppStorage.getUser();
