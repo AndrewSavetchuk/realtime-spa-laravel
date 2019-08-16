@@ -69,8 +69,7 @@ export default {
         then((res) => {
           this.questions = res.data.data;
           this.meta = res.data.meta;
-        }).
-        catch((error) => console.log(error.response.data));
+        });
     },
 
     goTo(page) {
