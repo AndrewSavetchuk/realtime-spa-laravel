@@ -7,14 +7,14 @@
     >
       <v-card-title>
         <h6>{{ reply.user }} answered {{ reply.created_at }}</h6>
-        <v-spacer/>
+        <v-spacer />
         <like
           :reply="reply"
         />
       </v-card-title>
 
       <v-card-text>
-        <v-divider class="mb-2"/>
+        <v-divider class="mb-2" />
         <div v-if="!editing || editing !== reply.id">
           <div
             v-html="parseReplyBody(reply.body)"

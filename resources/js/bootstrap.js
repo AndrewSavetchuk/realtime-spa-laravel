@@ -33,13 +33,12 @@ window.axios.defaults.headers.common['Authorization'] = accessToken;
  * a simple convenience so we don't have to attach every token manually.
  */
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
+const token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error(
-    'CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -59,7 +58,7 @@ window.Echo = new Echo({
   encrypted: true,
   auth: {
     headers: {
-      'Authorization': accessToken
-    }
-  }
+      'Authorization': accessToken,
+    },
+  },
 });

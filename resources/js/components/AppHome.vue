@@ -40,9 +40,9 @@
       app
       clipped-left
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Pusher Realtime Updates Application</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
       <app-notification
         v-if="isLoggedIn"
       />
@@ -54,7 +54,7 @@
         grid-list-md
         fill-height
       >
-        <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.fullPath" />
       </v-container>
     </v-content>
 
@@ -72,9 +72,7 @@ export default {
     AppNotification,
   },
 
-  props: {
-    source: String,
-  },
+  props: ['source'],
 
   data() {
     return {

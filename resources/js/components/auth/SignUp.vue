@@ -6,41 +6,50 @@
     <v-flex shrink>
       <v-form @submit.prevent="signUp">
         <v-text-field
-          label="Name"
           v-model="form.name"
+          label="Name"
           type="text"
           required
-        ></v-text-field>
-        <div class="red--text" v-if="errors.name">
+        />
+        <div
+          v-if="errors.name"
+          class="red--text"
+        >
           {{ errors.name[0] }}
         </div>
 
         <v-text-field
-          label="E-mail"
           v-model="form.email"
+          label="E-mail"
           type="email"
           required
-        ></v-text-field>
-        <div class="red--text" v-if="errors.email">
+        />
+        <div
+          v-if="errors.email"
+          class="red--text"
+        >
           {{ errors.email[0] }}
         </div>
 
         <v-text-field
-          label="Password"
           v-model="form.password"
+          label="Password"
           type="password"
           required
-        ></v-text-field>
-        <div class="red--text" v-if="errors.password">
+        />
+        <div
+          v-if="errors.password"
+          class="red--text"
+        >
           {{ errors.password[0] }}
         </div>
 
         <v-text-field
-          label="Password Confirmation"
           v-model="form.password_confirmation"
+          label="Password Confirmation"
           type="password"
           required
-        ></v-text-field>
+        />
 
         <v-btn
           type="submit"

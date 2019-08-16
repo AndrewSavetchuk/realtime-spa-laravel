@@ -6,21 +6,24 @@
     <v-flex shrink>
       <v-form @submit.prevent="login">
         <v-text-field
-          label="E-mail"
           v-model="form.email"
+          label="E-mail"
           type="email"
           required
-        ></v-text-field>
-        <div class="red--text" v-if="error">
+        />
+        <div
+          v-if="error"
+          class="red--text"
+        >
           {{ error }}
         </div>
 
         <v-text-field
-          label="Password"
           v-model="form.password"
+          label="Password"
           type="password"
           required
-        ></v-text-field>
+        />
 
         <v-btn
           type="submit"

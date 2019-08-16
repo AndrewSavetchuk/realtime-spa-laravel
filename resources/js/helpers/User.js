@@ -3,11 +3,11 @@ import AppStorage from './AppStorage';
 
 class User {
   responseAfterLogin(res) {
-    const access_token = res.data.access_token;
+    const accessToken = res.data.access_token;
     const username = res.data.user;
 
-    if (Token.isValid(access_token)) {
-      AppStorage.store(username, access_token);
+    if (Token.isValid(accessToken)) {
+      AppStorage.store(username, accessToken);
     }
   }
 

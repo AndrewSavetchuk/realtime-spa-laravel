@@ -9,12 +9,15 @@
         @submit.prevent="ask"
       >
         <v-text-field
-          label="Title"
           v-model="form.title"
+          label="Title"
           type="text"
           required
         />
-        <div class="red--text" v-if="errors.title">
+        <div
+          v-if="errors.title"
+          class="red--text"
+        >
           {{ errors.title[0] }}
         </div>
 
@@ -26,7 +29,10 @@
           label="Category"
           autocomplete
         />
-        <div class="red--text" v-if="errors.categoryId">
+        <div
+          v-if="errors.categoryId"
+          class="red--text"
+        >
           {{ errors.categoryId[0] }}
         </div>
 
@@ -34,7 +40,10 @@
           v-model="form.body"
           class="mb-4"
         />
-        <div class="red--text" v-if="errors.body">
+        <div
+          v-if="errors.body"
+          class="red--text"
+        >
           {{ errors.body[0] }}
         </div>
 

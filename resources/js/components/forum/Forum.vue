@@ -3,7 +3,10 @@
     row
     wrap
   >
-    <v-flex xs8 class="pt-0">
+    <v-flex
+      xs8
+      class="pt-0"
+    >
       <v-card
         v-for="question in questions"
         :key="question.slug"
@@ -37,7 +40,10 @@
         />
       </div>
     </v-flex>
-    <v-flex xs4 class="pt-0">
+    <v-flex
+      xs4
+      class="pt-0"
+    >
       <app-sidebar />
     </v-flex>
   </v-layout>
@@ -66,10 +72,10 @@ export default {
   methods: {
     fetchQuestions(fetchUrl) {
       axios.get(fetchUrl).
-        then((res) => {
-          this.questions = res.data.data;
-          this.meta = res.data.meta;
-        });
+          then((res) => {
+            this.questions = res.data.data;
+            this.meta = res.data.meta;
+          });
     },
 
     goTo(page) {

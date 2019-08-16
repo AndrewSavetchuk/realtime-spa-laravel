@@ -6,8 +6,8 @@
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
         <v-btn
-          v-on="on"
           :color="unreadCounter > 0 ? 'teal' : ''"
+          v-on="on"
         >
           <v-icon>
             add_alert

@@ -5,8 +5,8 @@
   >
     <div>
       <v-form
-        @submit.prevent="submit"
         class="mb-5"
+        @submit.prevent="submit"
       >
         <v-text-field
           v-model="form.title"
@@ -14,7 +14,10 @@
           type="text"
           required
         />
-        <div class="red--text" v-if="errors.title">
+        <div
+          v-if="errors.title"
+          class="red--text"
+        >
           {{ errors.title[0] }}
         </div>
 
@@ -139,7 +142,7 @@ export default {
 
     update() {
       axios.patch(`/api/categories/${this.editSlug}`, this.form).then((res) => {
-        const category = _.findIndex(this.categories, { slug: this.editSlug });
+        const category = _.findIndex(this.categories, {slug: this.editSlug});
         this.categories[category].title = this.form.title;
         this.form.title = '';
         this.editSlug = null;

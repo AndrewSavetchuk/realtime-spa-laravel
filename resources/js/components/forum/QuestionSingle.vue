@@ -1,6 +1,12 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 class="pt-0">
+  <v-layout
+    row
+    wrap
+  >
+    <v-flex
+      xs12
+      class="pt-0"
+    >
       <question-edit-form
         v-if="editing"
         :question="question"
@@ -15,8 +21,12 @@
               {{ question.title }}
             </h3>
           </div>
-          <v-spacer></v-spacer>
-          <v-btn color="teal">{{ question.replies ? question.replies.length : '0' }} Replies</v-btn>
+          <v-spacer />
+          <v-btn
+            color="teal"
+          >
+            {{ question.replies ? question.replies.length : '0' }} Replies
+          </v-btn>
         </v-card-title>
         <v-card-text>
           <div class="grey--text">
@@ -120,7 +130,7 @@ export default {
     destroy() {
       axios.delete(`/api/questions/${this.question.slug}`).then(() => {
         this.$router.push('/forum');
-      })
+      });
     },
 
     insertNewReply(reply) {
